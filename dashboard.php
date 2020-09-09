@@ -4,7 +4,11 @@
   <title>Dashboard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+  <!-- DEVELOP'S CUSTOM STYLES -->
+  <link rel="stylesheet" href="assets/dashboard/css/dashboard.css">
 </head>
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -111,7 +115,7 @@
           </div>
 
           <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
-          <img src="assets\dashboard\images\widgets_concept.png">
+          <img class="widget-concept" src="assets\dashboard\images\widgets_concept.png">
           <h2>Customer Report Summary</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
