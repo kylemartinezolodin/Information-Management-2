@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Register</title>
+  <title>Dashboard</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+  <!-- DEVELOP'S CUSTOM STYLES -->
+  <link rel="stylesheet" href="assets/dashboard/css/dashboard.css">
 </head>
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
@@ -113,8 +114,8 @@
             </div>
           </div>
 
-          <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
-
+          <!-- <canvas class="my-4" id="myChart" width="900" height="380"></canvas> -->
+          <img class="widget-concept" src="assets\dashboard\images\widgets_concept.png">
           <h2>Customer Report Summary</h2>
           <div class="table-responsive">
             <table class="table table-striped table-sm">
@@ -246,3 +247,8 @@
         </main>
       </div>
     </div>
+  </body>
+  <script src="assets/dashboard/js/jquery-3.5.1.js"></script>
+  <script src="assets/js/popper.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+</html>
