@@ -24,6 +24,22 @@ body {
   padding: 50vh;
 }
 
+.putToBottom-container {
+  position: absolute;
+  bottom: 1vw;
+}
+
+.information-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 100%;
+}
+
 .wrap-login100 {
   min-height: 92.5vh;
 }

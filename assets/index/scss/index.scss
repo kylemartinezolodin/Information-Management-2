@@ -18,15 +18,27 @@ body {
   }
   
   
-  .login-absolute-right{
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
+.login-absolute-right{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
-  .form-vertical-center{
-    padding: 50vh;
-  }
+.form-vertical-center{
+  padding: 50vh;
+}
+
+.putToBottom-container{
+  position: absolute;
+  bottom: 1vw;
+}
+
+.information-container{
+  display: flex;
+  position: relative;
+  justify-content: space-evenly;
+  width: 100%;
+}
 
   // TEMPLATE OVERIDES
 

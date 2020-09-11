@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Dashboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+
+  <!-- DEVELOPER'S CUSTOM STYLES -->
+  <style>
+.bg-img {
+  /* The image used */
+    background-image: url("https://wallpaperaccess.com/full/165496.jpg");
+
+    min-height: 700px;
+
+  /* Center and scale the image nicely */
+    background-repeat: no-repeat;
+    
+    position: relative;
+}
+
+input{
+    background-color: #f1f1f1;
+
+}
+
+.container {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    max-width: 600px;
+    padding: 16px;
+    background: linear-gradient(to bottom, rgba(255, 252, 254, 0.1) 0%, rgba(2, 50, 95, 0.9)100%);
+    border-radius: 15px;
+    color: white;
+    min-height: 650px;
+}
+  </style>
+</head>
+    <body>
+    <div class="wrapper">
+        <div class="bg-img">
+        <form class="container pt-3 my-3">
+            <div class="">
+                <h1>Register Order</h1>
+            </div>
+            <div class="form-group position-relative">
+                <label for="inputEmail">Order No.</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="" value="" required>
+            </div>
+            <div class="form-group position-relative">
+                <label for="inputDate">Date</label>
+                <input type="Date" class="form-control" id="inputPassword" placeholder="Password" required>
+
+                <label for="ItemType">Item Type:</label>
+                <select class="form-control" id="ItemType">
+                <option>CPU</option>
+                <option>GPU</option>
+                <option>RAM</option>
+                <option>PRINTER</option>
+                <option>PHONE</option>
+                <option>ETC</option>
+                </select>
+
+                <label for="Item">Item:</label>
+                <select class="form-control" id="Item">
+                <option>Some Brand 1</option>
+                <option>Some Brand 2</option>
+                <option>Some Brand 3</option>
+                <option>Some Brand 4</option>
+                <option>Some Brand 5</option>
+                </select>
+                
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-control" id="inputQuantity" required>
+            </div>
+            <div class="form-group">
+                <label for="customerName">Customer Name:</label>
+                <input type="text" class="form-control" id="inputName" required>
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount:</label>
+                <input class="form-control" type="text" placeholder="Auto-Generated Value" readonly>
+            </div>
+            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-secondary">Cancel</button>
+            </button>
+
+        </form>            
+        </div>
+    </div>
+    </body>
+    <script src="assets/index/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</html>
