@@ -7,19 +7,8 @@
   
   <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-  <!-- DATATABLE STYLES -->
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.3/b-colvis-1.6.3/b-html5-1.6.3/r-2.2.5/sp-1.1.1/datatables.css"/> -->
- 
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/DataTables-1.10.21/css/jquery.dataTables.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/AutoFill-2.3.5/css/autoFill.dataTables.min.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/Buttons-1.6.3/css/buttons.dataTables.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/Responsive-2.2.5/css/responsive.dataTables.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/SearchPanes-1.1.1/css/searchPanes.dataTables.css"/>
-  <link rel="stylesheet" type="text/css" href="assets/dashboard/vendor/datatables/Select-1.3.1/css/select.dataTables.css"/>
- 
 
   <!-- DEVELOPER'S CUSTOM STYLES -->
-  <link rel="stylesheet" href="assets/dashboard/css/dashboard.css">
   <style>
 .bg-img {
   /* The image used */
@@ -65,28 +54,48 @@ input{
             <div class="form-group position-relative">
                 <label for="inputDate">Date</label>
                 <input type="Date" class="form-control" id="inputPassword" placeholder="Password" required>
+
+                <label for="ItemType">Item Type:</label>
+                <select class="form-control" id="ItemType">
+                <option>CPU</option>
+                <option>GPU</option>
+                <option>RAM</option>
+                <option>PRINTER</option>
+                <option>PHONE</option>
+                <option>ETC</option>
+                </select>
+
                 <label for="Item">Item:</label>
-                <input type="text" class="form-control" id="inputItem">
+                <select class="form-control" id="Item">
+                <option>Some Brand 1</option>
+                <option>Some Brand 2</option>
+                <option>Some Brand 3</option>
+                <option>Some Brand 4</option>
+                <option>Some Brand 5</option>
+                </select>
                 
             </div>
             <div class="form-group">
-                <label for="quantity">Quantity</label>
+                <label for="quantity">Quantity:</label>
                 <input type="number" class="form-control" id="inputQuantity" required>
             </div>
             <div class="form-group">
-                <label for="customerName">Customer</label>
+                <label for="customerName">Customer Name:</label>
                 <input type="text" class="form-control" id="inputName" required>
             </div>
             <div class="form-group">
                 <label for="amount">Amount:</label>
-                <input type="number" class="form-control" id="inputAmount" required>
+                <input class="form-control" type="text" placeholder="Auto-Generated Value" readonly>
             </div>
             <button type="button" class="btn btn-primary">Submit</button>
-            
+            <button type="button" class="btn btn-secondary">Cancel</button>
             </button>
 
         </form>            
         </div>
     </div>
     </body>
+    <script src="assets/index/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 </html>
