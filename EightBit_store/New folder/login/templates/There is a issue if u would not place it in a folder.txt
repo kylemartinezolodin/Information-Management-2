@@ -1,1 +1,0 @@
-murag icompile tanan templates in an app, so if naay same filename any templates mag ka issue ka(like for example kung si app1 og app2 naay templates/index.html most likely ig http://127.0.0.1:8000/app2/index index ni app1 mo gawas)
