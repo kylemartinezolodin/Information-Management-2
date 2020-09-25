@@ -19,5 +19,6 @@ from  dashboard import views
 app_name = 'dashboard'
 urlpatterns = [
     path('index', views.DashboardIndexView.as_view(), name="index_view"),
-    path('registration', views.DashboardOrderView.as_view(), name="order_view")
+    path('registration', views.DashboardOrderView.as_view(), name="order_view"),
+    path('products', views.DashboardProductView.as_view(), name="product_view")
 ]

@@ -43,7 +43,7 @@ class Item(models.Model):
         ('MSE','Mouse'),
     ]
 
-    _type = models.CharField(max_length=3, choices=ITEM_TYPE_CHOICES)
+    itemType = models.CharField(db_column = 'itemType', max_length=3, choices=ITEM_TYPE_CHOICES)
     brand = models.CharField(max_length = 25)
     itemName = models.CharField(max_length = 25)
     price = models.DecimalField(max_digits = 6, decimal_places=2)

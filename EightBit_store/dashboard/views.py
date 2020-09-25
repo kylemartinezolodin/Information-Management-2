@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.http import HttpResponse
 from dashboard.models import *
 from dashboard.forms import *
 
@@ -77,21 +78,33 @@ class DashboardCustomerView(View):
             print(form.errors)
             return HttpResponse('Invalid')
 # REQUIRED
-class DashboardItemView(View):
+class DashboardProductView(View):
     def get(self, request):
-        return render(request, 'dashboard/item_registration.html')
+        # print(Item.ITEM_TYPE_CHOICES[0][1])
+        items = Item.objects.all()
+        context = {
+            'ITEM_TYPES':Item.ITEM_TYPE_CHOICES,
+            'ITEMS':items
+            }
+        print(type(context['ITEM_TYPES']))
+        
+        return render(request, 'dashboard/products.html', context)
 
     def post(self, request):
         form = ItemForm(request.POST)
 
         if form.is_valid():
-            _type = request.POST.get('_type')
+            itemType = request.POST.get('itemType')
+            print(itemType)
             brand = request.POST.get('brand')
             itemName = request.POST.get('itemName')
             price = request.POST.get('price')
 
-            form = Customer(_type=_type, brand=brand, itemName=itemName, price = price)
+            form = Item(itemType = itemType, brand=brand, itemName=itemName, price = price)
             form.save()
+            # return HttpResponse('Wew')
         else:
             print(form.errors)
             return HttpResponse('Invalid')
+
+        return self.get(request)
