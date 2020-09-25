@@ -57,7 +57,12 @@ class DashboardOrderView(View):
 # REQUIRED
 class DashboardCustomerView(View):
     def get(self, request):
-        return render(request, 'dashboard/customer_registration.html')
+        qs_customers = Customer.objects.all()
+        context = {
+            'customers' : qs_customers,
+            'STATUS_CHOICE' : Customer.CUSTOMER_STATUS_CHOICES
+        }    
+        return render(request, 'dashboard/customer.html', context)
 
     def post(self, request):
         form = CustomerForm(request.POST)
@@ -77,6 +82,9 @@ class DashboardCustomerView(View):
         else:
             print(form.errors)
             return HttpResponse('Invalid')
+
+        return self.get(request)
+        
 # REQUIRED
 class DashboardProductView(View):
     def get(self, request):

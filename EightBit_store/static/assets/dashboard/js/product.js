@@ -46,3 +46,4 @@ setInputFilter(document.getElementById("viewPrice"), function(value) {
 });
 
 // FROM: https://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
+// ADDITIONAL REGEX HELP HERE: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
