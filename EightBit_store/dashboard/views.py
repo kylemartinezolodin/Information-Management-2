@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.http import HttpResponse
 from dashboard.models import *
@@ -99,20 +99,46 @@ class DashboardProductView(View):
         return render(request, 'dashboard/products.html', context)
 
     def post(self, request):
-        form = ItemForm(request.POST)
+        # IF addButton IS PRESENT IN POST
+        if 'addButton' in request.POST:
+            form = ItemForm(request.POST)
 
-        if form.is_valid():
+            if form.is_valid():
+                itemType = request.POST.get('itemType')
+                print(itemType)
+                brand = request.POST.get('brand')
+                itemName = request.POST.get('itemName')
+                price = request.POST.get('price')
+
+                form = Item(itemType = itemType, brand=brand, itemName=itemName, price = price)
+                form.save()
+                print("An Item has been added!")
+            else:
+                print(form.errors)
+                return HttpResponse('Invalid')
+
+        # IF updateButton IS PRESENT IN POST
+        elif 'updateButton' in request.POST:
+            queryId = request.POST.get('itemId')
+
             itemType = request.POST.get('itemType')
-            print(itemType)
             brand = request.POST.get('brand')
             itemName = request.POST.get('itemName')
             price = request.POST.get('price')
 
-            form = Item(itemType = itemType, brand=brand, itemName=itemName, price = price)
-            form.save()
-            # return HttpResponse('Wew')
-        else:
-            print(form.errors)
-            return HttpResponse('Invalid')
-
-        return self.get(request)
+            # QUERY ITEM WITH ID EQUAL TO queryId
+            item = Item.objects.filter(itemId = queryId)
+            # UPDATE QUERRIED ITEM
+            item.update(itemType = itemType, brand=brand, itemName=itemName, price = price)
+            print("An Item has been updated!")
+        
+        # IF deleteButton IS PRESENT IN POST
+        elif 'deleteButton' in request.POST:
+            queryId = request.POST.get('itemId')
+            
+            # QUERY ITEM WITH ID EQUAL TO queryId
+            item = Item.objects.filter(itemId = queryId)
+            item.delete()
+            print("An Item has been updated!")
+            
+        return redirect('dashboard:product_view') # EXECUTE DashboardProductView.get() METHOD self.get(request)

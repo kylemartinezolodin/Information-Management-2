@@ -16,7 +16,15 @@ function updateModal(itemId){
     modal_itemBrand.value = document.querySelector('#brand-'+itemId).innerHTML
 
     modal_itemPrice = document.querySelector('#viewPrice')
-    modal_itemPrice.value = document.querySelector('#price-'+itemId).innerHTML
+    // table_price_text HAS '$' INSIDE, WE HAVE TO REMOVE iT 
+    table_price_text = document.querySelector('#price-'+itemId).innerHTML
+    price_inDecimal = table_price_text.substr(1) // REMOVES '$'
+    modal_itemPrice.value = price_inDecimal
+}
+
+function deleteModal(itemId) {
+    modal_itemId = document.querySelector('#deleteId')
+    modal_itemId.value = document.querySelector('#itemId-'+itemId).innerHTML
 }
 
 // Restricts input for the given textbox to the given inputFilter function.
