@@ -95,3 +95,11 @@ class DashboardItemView(View):
         else:
             print(form.errors)
             return HttpResponse('Invalid')
+
+class CustomerIndexView(View):
+    def get(self, request):
+        qs_customers = Customer.objects.all()
+        context = {
+            'customers' : qs_customer
+        }    
+        return render(request, 'dashboard/customer.html', context)
