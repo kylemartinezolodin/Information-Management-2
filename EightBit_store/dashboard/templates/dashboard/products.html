@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Customer</title>
+  <title>Products</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
@@ -118,7 +118,7 @@
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="btn-group mr-2">
                 <button type="button" class="btn btn-sm btn-primary pl-3 pr-3" data-toggle="modal" data-target="#addModal">
-                    Add Customer
+                    Add Item
                 </button>
                 <!-- <button class="btn btn-sm btn-outline-secondary">Share</button> -->
                 <!-- <button class="btn btn-sm btn-outline-secondary">Export</button> -->
@@ -136,139 +136,55 @@
           <!-- <img class="widget-concept" src="{% static 'assets\dashboard\images\widgets_concept.png' %}"> -->
           <div class="table-responsive">
             <!-- <table class="table table-striped table-sm"> -->
-        <table id="customertable" class="table table-striped table-bordered">
-            <thead>
+            <table id="mydatatable" class="display">
+              <thead>
                 <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Gender</th>
-                    <th>Contact number</th>
-                    <th>Email</th>                    
+                  <th>Item Id</th>
+                  <th>Type</th>
+                  <th>Brand</th>
+                  <th>Label</th>
+                  <th>Price</th>
+                  <th>Option</th>
                 </tr>
-            </thead>
-            <tbody>
-                {% for customer in customers %}
-                <!-- blank -->
+              </thead>
+              <tbody>
+                {% for item in ITEMS %}
                 <tr>
-                    <td>{{customer.firstname}}</td>
-                    <td>{{customer.lastname}}</td>
-                    <td> 
-                      {%if customer.gender == True %}
-                        Male
-                      {% else %}
-                        Female
-                      {% endif %}
-                      <span id="{{customer.customerId}}" style="display: none;">{{customer.gender}}</span> 
-                    </td>
-                    <td>{{customer.contactNumber}}</td>
-                    <td>{{customer.email}}</td>
-                    <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{customer.customerId}}" onclick="newModal({{customer.customerId}})" >VIEW</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal-{{customer.customerId}}" onclick="deleteModal({{customer.customerId}})">
-                      DELETE
+                  <td id="itemId-{{item.itemId}}">{{item.itemId}}</td>
+                  <td>
+                    {%for code, actualType in ITEM_TYPES%}
+                      {%if code == item.itemType%}
+                        {{actualType}}
+                      {%endif%}
+                    {%endfor%}
+                    <span id="itemType-{{item.itemId}}" style="display: none;">{{item.itemType}}</span>
+                  </td>
+                  <td id="brand-{{item.itemId}}">{{item.brand}}</td>
+                  <td id="itemName-{{item.itemId}}">{{item.itemName}}</td>
+                  <td id="price-{{item.itemId}}">${{item.price}}</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#viewModal"  onclick="updateModal({{item.itemId}})">
+                      View
                     </button>
-                    </td>
-
-                        <!-- Delete Dialog/Modal -->
-                    <div class="modal fade" id="deleteModal-{{customer.customerId}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered" role="dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            Are you sure you want to delete this record?
-                          </div>
-                          <div class="modal-footer">
-                            <form id="deleteCustomer" method="post">
-                              {% csrf_token %} <!-- DJANGO REQUIREMENT WHEN USING FORMS  -->
-                              <input type="hidden" id="deleteId" value="{{customer.customerId}}" name="customerId" required>
-                              <button type="submit" class="btn btn-danger" name="deleteButton">Delete</button>
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- View Dialog/Modal -->
-                    <div class="modal fade" id="newModal-{{customer.customerId}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg" role="dialog">
-                        <div class="modal-content">
-                          <div class="modal-header" style="background-color:#fff000">
-                            <h5 class="modal-title">VIEW DETAILS</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form id="updateCustomer" action="" method="POST">
-                              {% csrf_token %}
-                              <input type="hidden" id="updateId" value="{{customer.customerId}}" name="customerId" required>
-                            <div class = "row">
-                              <div class = "col-sm-4">
-                                <input type="text" class="form-control" id="id-fname" name="fname" placeholder="Firstname" value ={{customer.firstname}} required>
-                              </div>
-                              <div class = "col-sm-4">
-                                <input type="text" class="form-control" id="id-middlename" name="mname" placeholder="Middlename"  value ={{customer.middlename}}>
-                              </div>
-                              <div class = "col-sm-4">
-                                <input type="text" class="form-control" id="id-lastname" name="lname" placeholder="Lastname"  value ={{customer.lastname}}>
-                              </div>
-                            </div>
-                          <div class = "row">
-                            <div class = "col-sm-6">
-                              <input type="text" class="form-control" id="id-add-email" name="gender" placeholder="Gender"  value ={{customer.gender}}>
-                            </div>
-                            <div class = "col-sm-6">
-                              <input type="number" class="form-control" id="id-add-city" name="contactNumber" placeholder="contactNumber"  value ={{customer.contactNumber}}>
-                            </div>
-                          </div>
-                          <div class = "row">
-                            <div class = "col-sm-6">
-                              <label>Birthdate</label>
-                              <input type="date" class="form-control" name="birthday" placeholder="birthday" id="id-birthday" value={{customer.birthday}} >
-                              <div class="form-group col-4">
-                                <label for="viewType">Type</label>
-                                <select class="form-control col" id="viewType" name="status">
-                                  {% for customer_code, customer_name in STATUS_CHOICE %}
-                                  <option value="{{customer_code}}">{{customer_name}}</option>
-                                  {% endfor %}
-                                </select>
-                              </div>
-                            </div>
-                          </div>                        
-                          </div>
-                          <div class="modal-footer">                            
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-                            <button type="submit" class="btn btn-primary" form="updateCustomer" name="updateButton" value="{{customer.customerId}}">UPDATE</button>
-                          </form>
-                            <!--<button type="submit" class="btn btn-primary" form="addItem" name="addCustomer">Add Customer</button>-->
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {% endfor %}
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteModal" onclick="deleteModal({{item.itemId}})">
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-                
-                  
-
-            </tbody>
-        </table>
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </main>
       </div>
     </div>
-    
+
     <!-- Add Dialog/Modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="dialog">
           <div class="modal-content">
               <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Add Customer</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">Add Item</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -276,74 +192,132 @@
               <div class="modal-body">
                   <!-- autocomplete="off" -->
                   <form id="addItem" action="" method="POST">
-                    {% csrf_token %}
-                    <label for="addName">Name</label>
-                    <div class="form-row ml-2 mr-2" id="addName">
-                      <div class="form-group col-4">
-                        <input type="text" class="form-control" id="addFname" placeholder="Firstname" name="firstname" maxlength="25" required>
-                      </div>
-                      
-                      <div class="form-group col-4">
-                        <input type="text" class="form-control" id="addMname" placeholder="Middlename" name="middlename" maxlength="25">
-                      </div>
-
-                      <div class="form-group col-4">
-                        <input type="text" class="form-control" id="addLname" placeholder="Lastname" name="lastname" maxlength="25" required>
-                      </div>
-
+                    {% csrf_token %} <!-- DJANGO REQUIREMENT WHEN USING FORMS  -->
+                    <div class="form-group col">
+                      <label for="addName">Name</label>
+                      <input type="text" class="form-control" id="addName" placeholder="Name" name="itemName" maxlength="25" required>
                     </div>
+                    <!-- <input class="form-control" type = "text"  placeholder="Name" required> -->
+                    
                     <div class="form-row ml-2 mr-2">
-                      <div class="form-group col">
-                        <select class="form-control col" id="addStatus" name="gender">
-                          <option value="True">Male</option>
-                          <option value="False">Female</option>
-                        </select>
-                      </div>
-                      <div class="form-group col">
-                        <select class="form-control col" id="addStatus" name="status">
-                          {% for choice_code, choice_name in STATUS_CHOICE %}
-                          <option value="{{choice_code}}" {%if choice_code == 'SG'%} selected {%endif%}>{{choice_name}}</option>
+                      <div class="form-group col-4">
+                        <label for="addType">Type</label>
+                        <select class="form-control col" id="addType" name="itemType">
+
+                          <option selected>Choose...</option>
+                          {% for item_code, item_name in ITEM_TYPES %}
+                          <option value="{{item_code}}">{{item_name}}</option>
                           {% endfor %}
                         </select>
                       </div>
-                    </div>  
-                    <div class="form-row ml-2 mr-2">
-                      <!-- <input type="text" class="form-control col" id="inputPrice" placeholder="$" required> -->
-                      
-                      <div class="input-group mb-3 col">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">@</span>
-                        </div>
-                        <input type="email" class="form-control" id="addEmail" name="email" placeholder="Email" required>
-                      </div>
-
-                      <div class="input-group mb-3 col">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="basic-addon1">+63</span>
-                        </div>
-                        <input type="text" class="form-control" id="addNumber" name="contactNumber" placeholder="Cellular Number" minlength="10" maxlength="10" required>
+                      <div class="form-group col-8">
+                        <label for="addBrand">Brand</label>
+                        <input class="form-control col" type = "text" id="addBrand" placeholder="Brand" name="brand" maxlength="25" required>
                       </div>
                     </div>
                     
                     <div class="form-row ml-2 mr-2">
-                      <label class="col-form-label mr-2" for="viewPrice">Birthdate</label>
+                      <label class="col-form-label mr-2" for="addPrice">Price</label>
                       <!-- <input type="text" class="form-control col" id="inputPrice" placeholder="$" required> -->
 
                       <div class="input-group mb-3 col">
-                        <input type="date" class="form-control" id="addBirthday" name="birthday" value="">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                        <input type="text" class="form-control" id="addPrice" name="price" required>
                       </div>
                     </div>
                   </form>
               </div>
               <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary" form="addItem" name="addCustomer">Add Customer</button>
+                  <button type="submit" class="btn btn-primary" form="addItem" name="addButton">Add Item</button>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
           </div>
       </div>
     </div>
 
+    <!-- View Dialog/Modal -->
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Update Item</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <!-- autocomplete="off" -->
+                  <form id="updateItem" action="" method="POST">
+                    {% csrf_token %} <!-- DJANGO REQUIREMENT WHEN USING FORMS  -->
+                    <input type="hidden" id="viewId" value="" name="itemId" required>
+                    <div class="form-group col">
+                      <label for="viewName">Name</label>
+                      <input type="text" class="form-control" id="viewName" placeholder="Name" name="itemName" maxlength="25" required>
+                    </div>
+                    <!-- <input class="form-control" type = "text"  placeholder="Name" required> -->
+                    
+                    <div class="form-row ml-2 mr-2">
+                      <div class="form-group col-4">
+                        <label for="viewType">Type</label>
+                        <select class="form-control col" id="viewType" name="itemType">
+                          {% for item_code, item_name in ITEM_TYPES %}
+                          <option value="{{item_code}}">{{item_name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      <div class="form-group col-8">
+                        <label for="viewBrand">Brand</label>
+                        <input class="form-control col" type = "text" id="viewBrand" placeholder="Brand" name="brand" maxlength="25" required>
+                      </div>
+                    </div>
+                    
+                    <div class="form-row ml-2 mr-2">
+                      <label class="col-form-label mr-2" for="viewPrice">Price</label>
+                      <!-- <input type="text" class="form-control col" id="inputPrice" placeholder="$" required> -->
 
+                      <div class="input-group mb-3 col">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">$</span>
+                        </div>
+                        <input type="text" class="form-control" id="viewPrice" name="price" required>
+                      </div>
+                    </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-success" form="updateItem" name="updateButton">Update</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- Delete Dialog/Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Delete</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete this record?
+          </div>
+          <div class="modal-footer">
+            <form id="deleteItem" method="post">
+              {% csrf_token %} <!-- DJANGO REQUIREMENT WHEN USING FORMS  -->
+              <input type="hidden" id="deleteId" value="" name="itemId" required>
+              <button type="submit" class="btn btn-danger" name="deleteButton">Delete</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 <!-- VENDER JAVASCRIPT -->
@@ -401,7 +375,6 @@
   </script>
 
 <!-- CUSTOM JAVASCRIPT -->
-  <script type="text/javascript" src="{% static 'assets/dashboard/js/customer.js' %}"></script>
+  <script type="text/javascript" src="{% static 'assets/dashboard/js/product.js' %}"></script>
 
 </html>
-

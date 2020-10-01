@@ -23,5 +23,6 @@ app_name = 'dashboard'
 urlpatterns = [
     path('index', views.DashboardIndexView.as_view(), name="index_view"),
     path('registration', views.DashboardOrderView.as_view(), name="order_view"),
-    path('customer', views.CustomerIndexView.as_view(), name="customer_view")
+    path('products', views.DashboardProductView.as_view(), name="product_view"),
+    path('customers', views.DashboardCustomerView.as_view(), name="customer_view")
 ]
