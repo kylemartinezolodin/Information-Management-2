@@ -52,7 +52,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="products">
                   <span data-feather="shopping-cart"></span>
                   Products
                 </a>
@@ -160,7 +160,7 @@
                       {% endif %}
                       <span id="{{customer.customerId}}" style="display: none;">{{customer.gender}}</span> 
                     </td>
-                    <td>{{customer.contactNumber}}</td>
+                    <td>0{{customer.contactNumber}}</td>
                     <td>{{customer.email}}</td>
                     <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newModal-{{customer.customerId}}" onclick="newModal({{customer.customerId}})" >VIEW</a>
@@ -195,7 +195,7 @@
                     </div>
                     
                     <!-- View Dialog/Modal -->
-                    <div class="modal fade" id="newModal-{{customer.customerId}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                    <!-- <div class="modal fade" id="newModal-{{customer.customerId}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg" role="dialog">
                         <div class="modal-content">
                           <div class="modal-header" style="background-color:#fff000">
@@ -230,7 +230,7 @@
                           <div class = "row">
                             <div class = "col-sm-6">
                               <label>Birthdate</label>
-                              <input type="date" class="form-control" name="birthday" placeholder="birthday" id="id-birthday" value={{customer.birthday}} >
+                              <input type="date" class="form-control" name="birthday" placeholder="birthday" id="id-birthday" value="{{customer.birthday|date:'Y-m-d' }}" >
                               <div class="form-group col-4">
                                 <label for="viewType">Type</label>
                                 <select class="form-control col" id="viewType" name="status">
@@ -244,11 +244,95 @@
                           </div>
                           <div class="modal-footer">                            
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
-                            <button type="submit" class="btn btn-primary" form="updateCustomer" name="updateButton" value="{{customer.customerId}}">UPDATE</button>
-                          </form>
-                            <!--<button type="submit" class="btn btn-primary" form="addItem" name="addCustomer">Add Customer</button>-->
+                            <button type="submit" class="btn btn-primary" name="updateButton" value="{{customer.customerId}}">UPDATE</button>
                           </div>
+                          
+                        </form>
                         </div>
+                      </div>
+                    </div> -->
+
+                    
+                    <div class="modal fade" id="newModal-{{customer.customerId}}" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLongTitle">Add Customer</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              
+                              <form id="updateCustomer" action="" method="POST">
+                                <div class="modal-body">
+                                  <!-- autocomplete="off" -->
+                                    {% csrf_token %}
+                                    <input type="hidden" id="updateId" value="{{customer.customerId}}" name="customerId" required>
+                                    <label for="addName">Name</label>
+                                    <div class="form-row ml-2 mr-2" id="addName">
+                                      <div class="form-group col-4">
+                                        <input type="text" class="form-control" id="id-fname" name="fname" placeholder="Firstname" value ={{customer.firstname}} required>
+                                      </div>
+                                      
+                                      <div class="form-group col-4">
+                                        <input type="text" class="form-control" id="id-middlename" name="mname" placeholder="Middlename"  value ={{customer.middlename}}>
+                                      </div>
+
+                                      <div class="form-group col-4">
+                                        <input type="text" class="form-control" id="id-lastname" name="lname" placeholder="Lastname"  value ={{customer.lastname}}>
+                                      </div>
+
+                                    </div>
+                                    <div class="form-row ml-2 mr-2">
+                                      <div class="form-group col">
+                                        <select class="form-control col" id="addStatus" name="gender">
+                                          <option value="True" {%if customer.gender == 1%} selected {%endif%}>Male</option>
+                                          <option value="False" {%if customer.gender == 0%} selected {%endif%}>Female</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group col">
+                                        <select class="form-control col" id="addStatus" name="status">
+                                          {% for choice_code, choice_name in STATUS_CHOICE %}
+                                          <option value="{{choice_code}}" {%if customer.status == choice_code%} selected {%endif%}>{{choice_name}}</option>
+                                          {% endfor %}
+                                        </select>
+                                      </div>
+                                    </div>  
+                                    <div class="form-row ml-2 mr-2">
+                                      <!-- <input type="text" class="form-control col" id="inputPrice" placeholder="$" required> -->
+                                      
+                                      <div class="input-group mb-3 col">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon1">@</span>
+                                        </div>
+                                        <input type="email" class="form-control" id="addEmail" name="email" placeholder="Email" value="{{customer.email}}" required>
+                                      </div>
+
+                                      <div class="input-group mb-3 col">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="basic-addon1">+63</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="addNumber" name="contactNumber" placeholder="Cellular Number" minlength="10" maxlength="10" value="{{customer.contactNumber}}" required>
+                                      </div>
+                                    </div>
+                                    
+                                    <div class="form-row ml-2 mr-2">
+                                      <label class="col-form-label mr-2" for="viewPrice">Birthdate</label>
+                                      <!-- <input type="text" class="form-control col" id="inputPrice" placeholder="$" required> -->
+
+                                      <div class="input-group mb-3 col">
+                                        <input type="date" class="form-control" id="addBirthday" name="birthday" value="{{customer.birthday|date:'Y-m-d' }}">
+                                      </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success" name="updateButton" value="{{customer.customerId}}">Update</button>
+                                    <!-- <button type="submit" class="btn btn-success" form="updateCustomer" name="updateCustomer">Update</button> -->
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                                
+                            </form>
+                          </div>
                       </div>
                     </div>
                     {% endfor %}

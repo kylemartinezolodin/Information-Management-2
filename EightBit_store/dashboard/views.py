@@ -62,6 +62,9 @@ class DashboardCustomerView(View):
             'customers' : qs_customers,
             'STATUS_CHOICE' : Customer.CUSTOMER_STATUS_CHOICES
         }
+        # test = Customer.objects.get(customerId = 1)
+        print(qs_customers[0].birthday)
+        print('mewo')
         return render(request, 'dashboard/customer.html', context)
 
     def post(self, request):
@@ -80,7 +83,6 @@ class DashboardCustomerView(View):
                 email = request.POST.get('email')
                 form = Customer(firstname=fname, middlename=mname, lastname=lname, gender = gender, status = status, birthday=birthday, contactNumber= contactNumber, email=email)
                 form.save()
-                return redirect('dashboard/customers')
             else:
                 print(form.errors)
                 return HttpResponse('Invalid')
@@ -99,7 +101,7 @@ class DashboardCustomerView(View):
 
             # QUERY ITEM WITH ID EQUAL TO queryId
             customer = Customer.objects.filter(customerId = queryId)
-            print(customer)
+            print(customer[0].lastname)
             # UPDATE QUERRIED ITEM
             customer.update(firstname=fname, middlename=mname, lastname=lname, gender = gender, status = status, birthday=birthday, contactNumber= contactNumber, email=email)
             print("An Item has been updated!")        
@@ -113,7 +115,7 @@ class DashboardCustomerView(View):
             print("An Item has been updated!")
 
 
-        return self.get(request)
+        return redirect('dashboard:customer_view')
         
 # REQUIRED
 class DashboardProductView(View):
