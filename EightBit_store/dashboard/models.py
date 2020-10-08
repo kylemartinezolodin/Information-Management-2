@@ -62,7 +62,7 @@ class Order(models.Model):
 # OPTIONAL PWEDE RA IDELETE
 class Cart(models.Model):
     cartId = models.AutoField(primary_key=True)
-    orderId = models.OneToOneField(db_column = 'orderId', to = 'dashboard.Order', on_delete = models.SET_NULL, null = True)
+    orderId = models.ForeignKey(db_column = 'orderId', to = 'dashboard.Order', on_delete = models.CASCADE, null = True)
     itemId = models.ForeignKey(db_column = 'itemId', to = 'dashboard.Item', on_delete = models.SET_NULL, null = True)
     quantity = models.DecimalField(max_digits = 6, decimal_places=0)
     class Meta:

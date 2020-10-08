@@ -11,6 +11,15 @@ Rules:
 	- <strong>z</strong> should returns to <strong>x.y.0</strong> after <strong>y</strong> is incremented
 	-Only increment <strong>z</strong> when there are minor changes (added elements, deleted, edited) relative to the <strong>y</strong> version
 <strong>Version History:</strong>
+	v1.5.0	- Altered <strong>Cart</strong> <i>on_delete</i> action when an <strong>Order</strong> is deleted <i>dashboard\models.py</i>
+		- Altered <strong>Cart</strong> <i>One-to-One</i> to <i>Many-to-One</i> <strong>OrderId-key</strong> relationship in <i>dashboard\models.py</i>
+		- Implemented <strong>Create Customer</strong> in <i>index-dashboard</i> page
+		- Added <strong>Existing Customer</strong> functions in <i>index-dashboard</i> page
+		- Added <strong>Existing Item</strong> functions in <i>index-dashboard</i> page
+		- Implemented <strong>Create Order</strong> and <strong>Create Cart</strong> in <i>index-dashboard</i> page
+		- Implemented  Cascading <strong>Remove Orders</strong> in <i>index-dashboard</i> page
+		- Implemented <strong>Remove Oredered-Item</strong> in <i>index-dashboard</i> page
+		- Handling Float-precision still in progress 
 	v1.4.1	- Merged <strong>1.4.0 with 1.3.1</strong>
 		- Fixed errors after adding customers in <i>v1.4.0</i>
 		- Modified view Modal in v1.4.0
